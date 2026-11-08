@@ -354,15 +354,77 @@
     initLanguage();
   }
 
-  // easter egg: 5 clicks on the + in the logo swaps the theme
+  // easter egg: 5 clicks on the + swaps the theme (and recolors the gui screenshot)
+  function recolorToRed(d) {
+    for (var i = 0; i < d.length; i += 4) {
+      if (d[i + 3] === 0) continue;
+      var r = d[i] / 255, g = d[i + 1] / 255, b = d[i + 2] / 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var df = max - min;
+      if (df === 0) continue;
+      var l = (max + min) / 2;
+      var s = df / (1 - Math.abs(2 * l - 1));
+      var h;
+      if (max === r) h = ((g - b) / df) % 6;
+      else if (max === g) h = (b - r) / df + 2;
+      else h = (r - g) / df + 4;
+      h *= 60;
+      if (h < 0) h += 360;
+      if (h < 200 || h > 320) continue;
+      var w = Math.min(1, Math.max(0, (s - 0.12) / 0.3));
+      if (w === 0) continue;
+      h = (h + 96) % 360;
+      l = Math.max(0, l - 0.3 * w);
+      var c = (1 - Math.abs(2 * l - 1)) * s;
+      var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      var m = l - c / 2;
+      var rr, gg, bb;
+      if (h < 60) { rr = c; gg = x; bb = 0; }
+      else if (h < 120) { rr = x; gg = c; bb = 0; }
+      else if (h < 180) { rr = 0; gg = c; bb = x; }
+      else if (h < 240) { rr = 0; gg = x; bb = c; }
+      else if (h < 300) { rr = x; gg = 0; bb = c; }
+      else { rr = c; gg = 0; bb = x; }
+      d[i] = Math.round((rr + m) * 255);
+      d[i + 1] = Math.round((gg + m) * 255);
+      d[i + 2] = Math.round((bb + m) * 255);
+    }
+  }
+
   (function () {
     var plus = document.getElementById("plus");
+    var img = document.querySelector(".shot img");
+    var origSrc = img ? img.getAttribute("src") : null;
+    var redSrc = null;
     var clicks = 0;
+
+    function setGui(red) {
+      if (!img || !img.isConnected) return;
+      img.style.filter = "";
+      if (!red) { img.src = origSrc; return; }
+      if (redSrc) { img.src = redSrc; return; }
+      try {
+        var c = document.createElement("canvas");
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        var ctx = c.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var data = ctx.getImageData(0, 0, c.width, c.height);
+        recolorToRed(data.data);
+        ctx.putImageData(data, 0, 0);
+        redSrc = c.toDataURL("image/png");
+        img.src = redSrc;
+      } catch (e) {
+        img.style.filter = "hue-rotate(96deg)";
+      }
+    }
+
     plus.addEventListener("click", function () {
       clicks++;
       if (clicks >= 5) {
         clicks = 0;
-        document.documentElement.classList.toggle("red");
+        var red = document.documentElement.classList.toggle("red");
+        setGui(red);
       }
     });
   })();
