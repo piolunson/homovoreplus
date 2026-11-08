@@ -5,18 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Homovore+</title>
 <meta name="description" content="fabric client focused on anarchy, mainly hazeynetwork">
-<meta name="theme-color" content="#0b0909">
+<meta name="theme-color" content="#0b0a0d">
 <meta property="og:title" content="Homovore+">
 <meta property="og:description" content="fabric client focused on anarchy, mainly hazeynetwork">
 <style>
   :root {
-    --bg: #0b0909;
-    --panel: #161112;
-    --line: #332224;
-    --text: #f2ebeb;
-    --muted: #a29193;
-    --accent: #e01b2e;
-    --accent-hover: #ff2d42;
+    --bg: #0b0a0d;
+    --panel: #151317;
+    --line: #2c2833;
+    --text: #f0ecf5;
+    --muted: #9a93a8;
+    --accent: #bda8f9;
+    --accent-hover: #d3c5ff;
+    --on-accent: #14101c;
   }
 
   * { box-sizing: border-box; }
@@ -25,7 +26,7 @@
     margin: 0;
     min-height: 100vh;
     background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(224, 27, 46, .12), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(189, 168, 249, .12), transparent 70%),
       var(--bg);
     color: var(--text);
     font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;
@@ -66,7 +67,7 @@
   .lang.active {
     background: var(--accent);
     border-color: var(--accent);
-    color: #ffffff;
+    color: var(--on-accent);
   }
 
   .logo {
@@ -95,7 +96,7 @@
     padding: 14px 30px;
     border: 1px solid var(--accent);
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
@@ -229,7 +230,7 @@
     </header>
 
     <section class="shot">
-      <img src="gui.png" alt="Homovore+ GUI" onerror="this.parentNode.remove()">
+      <img src="resources/gui.png" alt="Homovore+ GUI" onerror="this.parentNode.remove()">
     </section>
 
     <section class="boxes">
