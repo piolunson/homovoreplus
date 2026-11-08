@@ -121,6 +121,18 @@
     letter-spacing: .4px;
   }
 
+  .shot {
+    margin-bottom: 40px;
+    overflow-x: auto;
+  }
+
+  .shot img {
+    display: block;
+    width: 100%;
+    min-width: 760px;
+    height: auto;
+  }
+
   .boxes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -215,6 +227,10 @@
       </a>
       <span class="version" data-i18n="version">0.6.0 · fabric 1.21.11</span>
     </header>
+
+    <section class="shot">
+      <img src="gui.png" alt="Homovore+ GUI" onerror="this.parentNode.remove()">
+    </section>
 
     <section class="boxes">
       <div class="box">
