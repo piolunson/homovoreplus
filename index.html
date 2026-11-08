@@ -18,6 +18,14 @@
     --accent: #bda8f9;
     --accent-hover: #d3c5ff;
     --on-accent: #14101c;
+    --glow: rgba(189, 168, 249, .12);
+  }
+
+  :root.red {
+    --accent: #e01b2e;
+    --accent-hover: #ff2d42;
+    --on-accent: #ffffff;
+    --glow: rgba(224, 27, 46, .12);
   }
 
   * { box-sizing: border-box; }
@@ -26,7 +34,7 @@
     margin: 0;
     min-height: 100vh;
     background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(189, 168, 249, .12), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, var(--glow), transparent 70%),
       var(--bg);
     color: var(--text);
     font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;
@@ -221,7 +229,7 @@
         <button class="lang" data-lang="pl" type="button">PL</button>
         <button class="lang" data-lang="ru" type="button">RU</button>
       </div>
-      <div class="logo">Homovore<span>+</span></div>
+      <div class="logo">Homovore<span id="plus">+</span></div>
       <p class="tagline" data-i18n="tagline">fabric client focused on anarchy, mainly hazeynetwork</p>
       <a class="download" href="download/homovoreplus-0.6.0.jar" download>
         <span data-i18n="download">↓ download</span>
@@ -345,6 +353,19 @@
   } else {
     initLanguage();
   }
+
+  // easter egg: 5 clicks on the + in the logo swaps the theme
+  (function () {
+    var plus = document.getElementById("plus");
+    var clicks = 0;
+    plus.addEventListener("click", function () {
+      clicks++;
+      if (clicks >= 5) {
+        clicks = 0;
+        document.documentElement.classList.toggle("red");
+      }
+    });
+  })();
 </script>
 </body>
 </html>
