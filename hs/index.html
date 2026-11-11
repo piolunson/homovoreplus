@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haz · hs docs</title>
+<meta name="description" content="Haz hotkey scripts (.hs): bind a text file to a key and run commands, walks, keys and camera moves line by line.">
+<meta name="theme-color" content="#0b0a0d">
+<style>
+  :root {
+    --bg: #0b0a0d;
+    --panel: #151317;
+    --line: #2c2833;
+    --text: #f0ecf5;
+    --muted: #9a93a8;
+    --accent: #bda8f9;
+    --accent-hover: #d3c5ff;
+    --glow: rgba(189, 168, 249, .12);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, var(--glow), transparent 70%),
+      var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;
+    line-height: 1.65;
+    padding: 44px 20px 64px;
+  }
+
+  .wrap { width: 100%; max-width: 880px; margin: 0 auto; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 34px;
+  }
+
+  .back { font-size: 13px; color: var(--muted); }
+  .back:hover { color: var(--accent); }
+
+  .logo { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+  .logo span { color: var(--accent); }
+
+  h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    letter-spacing: -.5px;
+  }
+
+  .lead { color: var(--muted); margin: 0 0 30px; max-width: 720px; }
+
+  section {
+    border-top: 1px solid var(--line);
+    padding: 26px 0 4px;
+  }
+
+  h2 {
+    font-size: 15px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  h3 { font-size: 15px; margin: 22px 0 8px; }
+
+  p { margin: 0 0 12px; }
+
+  code, kbd {
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 13px;
+    background: #100e13;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  pre {
+    overflow: auto;
+    margin: 12px 0 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #100e13;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  pre code {
+    background: none;
+    border: 0;
+    padding: 0;
+    white-space: pre;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 14px;
+  }
+
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  td:first-child { white-space: nowrap; }
+
+  .muted { color: var(--muted); }
+
+  .note {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    background: var(--panel);
+    padding: 12px 14px;
+    margin: 14px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  ul { margin: 8px 0 16px; padding-left: 20px; }
+  li { margin: 4px 0; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 34px;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 560px) {
+    body { padding: 28px 16px 48px; }
+    h1 { font-size: 28px; }
+    td:first-child { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="../">← Haz</a>
+      <div class="logo">hs<span>.</span></div>
+    </div>
+
+    <h1>hs — hotkey scripts</h1>
+    <p class="lead">A script is a plain text file bound to a key. Every non-empty line is one step, executed top to bottom on the client tick. Steps can run client commands, walk, press keys, type in chat, move the camera and wait. This page is the full reference for every command, step and key name.</p>
+
+    <section>
+      <h2>quick start</h2>
+      <pre><code>.hs add /scripts/af1.txt R</code></pre>
+      <p>Put the file in <code>.minecraft/scripts/af1.txt</code> and press R in game. Paths are relative to your Minecraft folder, a leading <code>/</code> is optional. Skip the key to bind on the next key you press (<kbd>ESC</kbd> cancels).</p>
+    </section>
+
+    <section>
+      <h2>commands</h2>
+      <p>Every command starts with your client prefix (<code>.</code> by default). <code>.script</code> and <code>.scripts</code> are aliases of <code>.hs</code>.</p>
+      <table>
+        <thead><tr><th>command</th><th>what it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>.hs add &lt;file&gt; [key]</code></td><td>Binds a file to a key. Without <code>key</code> it waits for the next key press; <kbd>ESC</kbd> cancels. Mouse buttons work too (<code>M1</code>, <code>M2</code>, …).</td></tr>
+          <tr><td><code>.hs list</code></td><td>Prints every bound script and its key.</td></tr>
+          <tr><td><code>.hs remove &lt;file&gt;</code></td><td>Unbinds the script and forgets it (the file stays on disk).</td></tr>
+          <tr><td><code>.hs reload</code></td><td>Re-reads every bound file after you edit it. No restart needed.</td></tr>
+          <tr><td><code>.hs run &lt;file&gt;</code></td><td>Runs a bound script once, right now, without waiting for its key.</td></tr>
+          <tr><td><code>.hs stop</code></td><td>Stops the script that is currently running.</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">The <code>&lt;file&gt;</code> argument tab-completes script files found under your game folder (<code>.txt</code>, <code>.hs</code>, <code>.script</code>), so <code>.hs add /scripts/</code> + <kbd>TAB</kbd> lists what is in <code>.minecraft/scripts</code>.</p>
+    </section>
+
+    <section>
+      <h2>script file</h2>
+      <pre><code>.vclip 0.3
+*walk forward 0.3
+@delay 10ms
+.vclip -0.2
+*walk backward 0.5</code></pre>
+      <ul>
+        <li>One step per line, executed in order; blank lines are skipped.</li>
+        <li><code>//</code> starts a comment. <code>#</code> is <strong>not</strong> a comment — it sends a chat message.</li>
+        <li>Only one script runs at a time: starting another stops the previous one.</li>
+        <li>A running script stops by itself when you leave the world.</li>
+        <li>Binds are saved in <code>haz/scripts.json</code>; the files themselves are never modified.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>steps</h2>
+      <table>
+        <thead><tr><th>step</th><th>what it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>.command args</code></td><td>Runs any client command exactly as if typed in chat. The prefix is optional inside a script, so <code>vclip 0.3</code> and <code>.vclip 0.3</code> both work.</td></tr>
+          <tr><td><code>#text</code></td><td>Sends <code>text</code> to chat as a normal message (no command parsing). Example: <code>#gg</code>.</td></tr>
+          <tr><td><code>@delay &lt;time&gt;</code></td><td>Pauses the script. Units: <code>10ms</code>, <code>1s</code>, <code>2t</code> (ticks, 50 ms each) or a bare number of milliseconds. A delay shorter than a tick still costs one tick.</td></tr>
+          <tr><td><code>*walk &lt;dir&gt; &lt;blocks&gt;</code></td><td>Moves you gradually in the direction you are facing: 0.2 blocks per tick until <code>blocks</code> is covered. Directions: <code>forward</code>, <code>backward</code>, <code>left</code>, <code>right</code>, <code>up</code>, <code>down</code>.</td></tr>
+          <tr><td><code>!&lt;key&gt;</code></td><td>Presses a key, so whatever is bound to it fires (module toggles, keys, client binds). Examples: <code>!B</code>, <code>!SPACE</code>, <code>!1</code>, <code>!F1</code>, <code>!LSHIFT</code>, <code>!M1</code> for mouse buttons. A script never re-triggers itself.</td></tr>
+          <tr><td><code>$camera freeze</code></td><td>Pins the camera <em>position</em> where it is. The view still rotates with the mouse and you can keep moving — only the viewpoint stays behind.</td></tr>
+          <tr><td><code>$camera unfreeze</code></td><td>Eases the camera back to the player over ~300 ms (smooth, no snap) and hands it back to vanilla.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>examples</h2>
+      <h3>clip and step</h3>
+      <pre><code>// up 0.3, forward 0.3, short pause, back down
+.vclip 0.3
+*walk forward 0.3
+@delay 10ms
+.vclip -0.2
+*walk backward 0.5</code></pre>
+
+      <h3>freeze the view, move, release it</h3>
+      <pre><code>$camera freeze
+.vclip 0.2
+*walk forward 0.1
+!B
+@delay 15ms
+*walk backward 0.0222
+.vclip -0.07
+$camera unfreeze</code></pre>
+      <p class="muted">The freeze happens where the camera is at that line, so put it after the movement if you want the camera to stay at the new spot. <code>@delay 15ms</code> still costs one tick.</p>
+
+      <h3>chat + key + command</h3>
+      <pre><code>#gg
+!TAB
+.toggle Phase
+@delay 2t
+!ENTER</code></pre>
+    </section>
+
+    <section>
+      <h2>notes</h2>
+      <div class="note">Key names follow Minecraft's own names: <code>B</code>, <code>1</code>, <code>SPACE</code>, <code>F1</code>, <code>TAB</code>, <code>ENTER</code>, <code>ESC</code>, <code>UP</code>/<code>DOWN</code>/<code>LEFT</code>/<code>RIGHT</code>. <code>SHIFT</code>/<code>CTRL</code>/<code>ALT</code> map to the left variants, <code>RSHIFT</code>/<code>RCTRL</code>/<code>RALT</code> to the right ones.</div>
+      <p class="muted">Scripts run on the client tick, one step at a time; walks and delays pause the whole script. The first step runs on the tick after the key press.</p>
+    </section>
+
+    <footer>
+      <span>Haz · hs</span>
+      <span><a href="../">back to haz</a></span>
+    </footer>
+  </div>
+</body>
+</html>
