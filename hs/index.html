@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Haz · hs docs</title>
-<meta name="description" content="Haz hotkey scripts (.hs): bind a text file to a key and let it run commands, walks, keys and camera moves for you.">
+<meta name="description" content="Haz hotkey scripts (.hs): bind a text file to a key and run commands, walks, keys and camera moves line by line.">
 <meta name="theme-color" content="#0b0a0d">
 <style>
   :root {
@@ -172,30 +172,30 @@
       <div class="logo">hs<span>.</span></div>
     </div>
 
-    <h1>hs, hotkey scripts</h1>
-    <p class="lead">a script is just a text file bound to a key. every line is one step and they run top to bottom on the client tick. a step can run a command, walk, press a key, say something in chat, move the camera or just wait. everything is on this page so you don't have to guess xD</p>
+    <h1>hs — hotkey scripts</h1>
+    <p class="lead">A script is a plain text file bound to a key. Every non-empty line is one step, executed top to bottom on the client tick. Steps can run client commands, walk, press keys, type in chat, move the camera and wait. This page is the full reference for every command, step and key name.</p>
 
     <section>
       <h2>quick start</h2>
       <pre><code>.hs add /scripts/af1.txt R</code></pre>
-      <p>drop the file in <code>.minecraft/scripts/af1.txt</code> and hit R in game. paths are relative to your minecraft folder, the <code>/</code> at the start is optional. skip the key and it binds to the next key you press (<kbd>ESC</kbd> cancels, in case you panic).</p>
+      <p>Put the file in <code>.minecraft/scripts/af1.txt</code> and press R in game. Paths are relative to your Minecraft folder, a leading <code>/</code> is optional. Skip the key to bind on the next key you press (<kbd>ESC</kbd> cancels).</p>
     </section>
 
     <section>
       <h2>commands</h2>
-      <p>every command starts with your client prefix (<code>.</code> by default). <code>.script</code> and <code>.scripts</code> do the same thing as <code>.hs</code>, use whatever you like.</p>
+      <p>Every command starts with your client prefix (<code>.</code> by default). <code>.script</code> and <code>.scripts</code> are aliases of <code>.hs</code>.</p>
       <table>
         <thead><tr><th>command</th><th>what it does</th></tr></thead>
         <tbody>
-          <tr><td><code>.hs add &lt;file&gt; [key]</code></td><td>binds a file to a key. no <code>key</code>? it waits for the next key you press (<kbd>ESC</kbd> cancels). mouse buttons work too (<code>M1</code>, <code>M2</code>, …).</td></tr>
-          <tr><td><code>.hs list</code></td><td>shows every bound script and its key.</td></tr>
-          <tr><td><code>.hs remove &lt;file&gt;</code></td><td>unbinds the script and forgets it (the file stays on your disk, relax).</td></tr>
-          <tr><td><code>.hs reload</code></td><td>re-reads all bound files after you edit them. no restart needed.</td></tr>
-          <tr><td><code>.hs run &lt;file&gt;</code></td><td>runs a bound script once, right now, no key needed.</td></tr>
-          <tr><td><code>.hs stop</code></td><td>stops the script that is running.</td></tr>
+          <tr><td><code>.hs add &lt;file&gt; [key]</code></td><td>Binds a file to a key. Without <code>key</code> it waits for the next key press; <kbd>ESC</kbd> cancels. Mouse buttons work too (<code>M1</code>, <code>M2</code>, …).</td></tr>
+          <tr><td><code>.hs list</code></td><td>Prints every bound script and its key.</td></tr>
+          <tr><td><code>.hs remove &lt;file&gt;</code></td><td>Unbinds the script and forgets it (the file stays on disk).</td></tr>
+          <tr><td><code>.hs reload</code></td><td>Re-reads every bound file after you edit it. No restart needed.</td></tr>
+          <tr><td><code>.hs run &lt;file&gt;</code></td><td>Runs a bound script once, right now, without waiting for its key.</td></tr>
+          <tr><td><code>.hs stop</code></td><td>Stops the script that is currently running.</td></tr>
         </tbody>
       </table>
-      <p class="muted">the <code>&lt;file&gt;</code> argument tab-completes script files in your game folder (<code>.txt</code>, <code>.hs</code>, <code>.script</code>), so <code>.hs add /scripts/</code> + <kbd>TAB</kbd> shows what is in <code>.minecraft/scripts</code>.</p>
+      <p class="muted">The <code>&lt;file&gt;</code> argument tab-completes script files found under your game folder (<code>.txt</code>, <code>.hs</code>, <code>.script</code>), so <code>.hs add /scripts/</code> + <kbd>TAB</kbd> lists what is in <code>.minecraft/scripts</code>.</p>
     </section>
 
     <section>
@@ -206,11 +206,11 @@
 .vclip -0.2
 *walk backward 0.5</code></pre>
       <ul>
-        <li>one step per line, runs in order. empty lines are skipped.</li>
-        <li><code>//</code> starts a comment. <code>#</code> is <strong>not</strong> a comment, it sends a chat message, don't mix them up.</li>
-        <li>only one script runs at a time, starting another one stops the previous one.</li>
-        <li>a running script stops by itself when you leave the world.</li>
-        <li>binds are saved in <code>haz/scripts.json</code>, your files are never touched.</li>
+        <li>One step per line, executed in order; blank lines are skipped.</li>
+        <li><code>//</code> starts a comment. <code>#</code> is <strong>not</strong> a comment — it sends a chat message.</li>
+        <li>Only one script runs at a time: starting another stops the previous one.</li>
+        <li>A running script stops by itself when you leave the world.</li>
+        <li>Binds are saved in <code>haz/scripts.json</code>; the files themselves are never modified.</li>
       </ul>
     </section>
 
@@ -219,13 +219,13 @@
       <table>
         <thead><tr><th>step</th><th>what it does</th></tr></thead>
         <tbody>
-          <tr><td><code>.command args</code></td><td>runs any client command like you typed it in chat. the prefix is optional inside a script, so <code>vclip 0.3</code> and <code>.vclip 0.3</code> both work.</td></tr>
-          <tr><td><code>#text</code></td><td>sends <code>text</code> to chat as a normal message (no command parsing). example: <code>#gg</code>.</td></tr>
-          <tr><td><code>@delay &lt;time&gt;</code></td><td>waits. units: <code>10ms</code>, <code>1s</code>, <code>2t</code> (ticks, 50 ms each) or a bare number of milliseconds. anything shorter than a tick still costs one tick.</td></tr>
-          <tr><td><code>*walk &lt;dir&gt; &lt;blocks&gt;</code></td><td>moves you in the direction you are facing, 0.2 blocks per tick until <code>blocks</code> is covered. directions: <code>forward</code>, <code>backward</code>, <code>left</code>, <code>right</code>, <code>up</code>, <code>down</code>.</td></tr>
-          <tr><td><code>!&lt;key&gt;</code></td><td>presses a key, so whatever is bound to it fires (module toggles, keys, client binds). examples: <code>!B</code>, <code>!SPACE</code>, <code>!1</code>, <code>!F1</code>, <code>!LSHIFT</code>, <code>!M1</code> for mouse buttons. a script never triggers itself, so no infinite loops.</td></tr>
-          <tr><td><code>$camera freeze</code></td><td>pins the camera <em>position</em> where it is. you can still look around with the mouse and keep moving, only the viewpoint stays behind.</td></tr>
-          <tr><td><code>$camera unfreeze</code></td><td>smoothly moves the camera back to the player over about 300 ms (no snap) and gives it back to vanilla.</td></tr>
+          <tr><td><code>.command args</code></td><td>Runs any client command exactly as if typed in chat. The prefix is optional inside a script, so <code>vclip 0.3</code> and <code>.vclip 0.3</code> both work.</td></tr>
+          <tr><td><code>#text</code></td><td>Sends <code>text</code> to chat as a normal message (no command parsing). Example: <code>#gg</code>.</td></tr>
+          <tr><td><code>@delay &lt;time&gt;</code></td><td>Pauses the script. Units: <code>10ms</code>, <code>1s</code>, <code>2t</code> (ticks, 50 ms each) or a bare number of milliseconds. A delay shorter than a tick still costs one tick.</td></tr>
+          <tr><td><code>*walk &lt;dir&gt; &lt;blocks&gt;</code></td><td>Moves you gradually in the direction you are facing: 0.2 blocks per tick until <code>blocks</code> is covered. Directions: <code>forward</code>, <code>backward</code>, <code>left</code>, <code>right</code>, <code>up</code>, <code>down</code>.</td></tr>
+          <tr><td><code>!&lt;key&gt;</code></td><td>Presses a key, so whatever is bound to it fires (module toggles, keys, client binds). Examples: <code>!B</code>, <code>!SPACE</code>, <code>!1</code>, <code>!F1</code>, <code>!LSHIFT</code>, <code>!M1</code> for mouse buttons. A script never re-triggers itself.</td></tr>
+          <tr><td><code>$camera freeze</code></td><td>Pins the camera <em>position</em> where it is. The view still rotates with the mouse and you can keep moving — only the viewpoint stays behind.</td></tr>
+          <tr><td><code>$camera unfreeze</code></td><td>Eases the camera back to the player over ~300 ms (smooth, no snap) and hands it back to vanilla.</td></tr>
         </tbody>
       </table>
     </section>
@@ -249,7 +249,7 @@
 *walk backward 0.0222
 .vclip -0.07
 $camera unfreeze</code></pre>
-      <p class="muted">the freeze happens where the camera is at that line, so put it after the movement if you want the camera to stay at the new spot. <code>@delay 15ms</code> still costs one tick.</p>
+      <p class="muted">The freeze happens where the camera is at that line, so put it after the movement if you want the camera to stay at the new spot. <code>@delay 15ms</code> still costs one tick.</p>
 
       <h3>chat + key + command</h3>
       <pre><code>#gg
@@ -261,8 +261,8 @@ $camera unfreeze</code></pre>
 
     <section>
       <h2>notes</h2>
-      <div class="note">key names are the same as in minecraft: <code>B</code>, <code>1</code>, <code>SPACE</code>, <code>F1</code>, <code>TAB</code>, <code>ENTER</code>, <code>ESC</code>, <code>UP</code>/<code>DOWN</code>/<code>LEFT</code>/<code>RIGHT</code>. <code>SHIFT</code>/<code>CTRL</code>/<code>ALT</code> mean the left ones, <code>RSHIFT</code>/<code>RCTRL</code>/<code>RALT</code> the right ones.</div>
-      <p class="muted">scripts run on the client tick, one step at a time, and walks and delays pause the whole script. the first step runs on the tick after you press the key.</p>
+      <div class="note">Key names follow Minecraft's own names: <code>B</code>, <code>1</code>, <code>SPACE</code>, <code>F1</code>, <code>TAB</code>, <code>ENTER</code>, <code>ESC</code>, <code>UP</code>/<code>DOWN</code>/<code>LEFT</code>/<code>RIGHT</code>. <code>SHIFT</code>/<code>CTRL</code>/<code>ALT</code> map to the left variants, <code>RSHIFT</code>/<code>RCTRL</code>/<code>RALT</code> to the right ones.</div>
+      <p class="muted">Scripts run on the client tick, one step at a time; walks and delays pause the whole script. The first step runs on the tick after the key press.</p>
     </section>
 
     <footer>

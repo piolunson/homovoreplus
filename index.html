@@ -144,7 +144,7 @@
 
   .boxes {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 18px;
   }
 
@@ -172,6 +172,8 @@
   }
 
   .box strong { color: var(--text); font-weight: 600; }
+
+  .box code { color: var(--text); font-size: 12px; }
 
   .box a, ol a {
     color: var(--text);
@@ -231,10 +233,10 @@
       </div>
       <div class="logo">Haz<span id="plus"></span></div>
       <p class="tagline" data-i18n="tagline">fabric client focused on anarchy, mainly hazeynetwork</p>
-      <a class="download" href="download/haz-1.0.32.jar" download>
+      <a class="download" href="download/haz-1.0.38.jar" download>
         <span data-i18n="download">↓ download</span>
       </a>
-      <span class="version" data-i18n="version">1.0.32 · fabric 1.21.11 · maceaura + fakefly</span>
+      <span class="version" data-i18n="version">1.0.38 · fabric 1.21.11 · maceaura + fakefly + witherplacer</span>
     </header>
 
     <section class="shot">
@@ -259,11 +261,15 @@
         <p>hotkey scripts: bind a text file to a key and run commands, walks, keys, chat lines and camera moves line by line. the full command and step reference lives in the docs.</p>
         <p><a href="hs/" style="color:var(--accent);font-weight:700">docs &rarr;</a></p>
       </div>
+      <div class="box">
+        <h2 data-i18n="witherTitle">witherplacer</h2>
+        <p data-i18n="witherText">auto flight that drops two named withers every set distance. start with <code>.witherplacer firework|fakefly|control &lt;BPT&gt;</code>, stop with <code>.witherplacer stop</code>.</p>
+      </div>
     </section>
 
 
     <footer>
-      <span>Haz · v1.0.32</span>
+      <span>Haz · v1.0.38</span>
       <span>
         <a href="https://github.com/piolunson/homovoreplus" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/piolunson" target="_blank" rel="noopener">piolunson</a>
@@ -276,35 +282,41 @@
     en: {
       tagline: "fabric client focused on anarchy, mainly hazeynetwork",
       download: "↓ download",
-      version: "1.0.32 · fabric 1.21.11 · maceaura + fakefly",
+      version: "1.0.38 · fabric 1.21.11 · maceaura + fakefly + witherplacer",
       reqTitle: "deps",
       reqText: "mc <strong>1.21.11</strong> with <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a> and <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Plus Java 21.",
       installTitle: "instalation",
       step1: "fabric ofc <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "copy the jar to <strong>mods/</strong>",
       step3: "start mc",
+      witherTitle: "witherplacer",
+      witherText: "auto flight that drops two named withers every set distance. start with <code>.witherplacer firework|fakefly|control &lt;BPT&gt;</code>, stop with <code>.witherplacer stop</code>.",
     },
     pl: {
       tagline: "klient fabric nastawiony na anarchię, głównie hazeynetwork",
       download: "↓ pobierz",
-      version: "1.0.32 · fabric 1.21.11 · maceaura + fakefly",
+      version: "1.0.38 · fabric 1.21.11 · maceaura + fakefly + witherplacer",
       reqTitle: "zależności",
       reqText: "mc <strong>1.21.11</strong> z <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loaderem</a> i <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Plus Java 21.",
       installTitle: "instalacja",
       step1: "fabric oczywiście <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "skopiuj jar do <strong>mods/</strong>",
       step3: "odpal mc",
+      witherTitle: "witherplacer",
+      witherText: "automatyczny lot, który co ustawiony dystans stawia dwa nazwane withery. start: <code>.witherplacer firework|fakefly|control &lt;BPT&gt;</code>, stop: <code>.witherplacer stop</code>.",
     },
     ru: {
       tagline: "fabric клиент, заточенный под анархию, в основном под hazeynetwork",
       download: "↓ скачать",
-      version: "1.0.32 · fabric 1.21.11 · maceaura + fakefly",
+      version: "1.0.38 · fabric 1.21.11 · maceaura + fakefly + witherplacer",
       reqTitle: "зависимости",
       reqText: "mc <strong>1.21.11</strong> с <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a> и <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Плюс Java 21.",
       installTitle: "установка",
       step1: "fabric, конечно <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "скопируй jar в <strong>mods/</strong>",
       step3: "запусти mc",
+      witherTitle: "witherplacer",
+      witherText: "автополёт, который через заданное расстояние ставит двух именованных wither'ов. старт: <code>.witherplacer firework|fakefly|control &lt;BPT&gt;</code>, стоп: <code>.witherplacer stop</code>.",
     }
   };
 
