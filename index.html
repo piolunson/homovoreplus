@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>Haz</title>
 <meta name="description" content="fabric client focused on anarchy, mainly hazeynetwork">
 <meta name="theme-color" content="#0b0a0d">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Haz">
 <meta property="og:description" content="fabric client focused on anarchy, mainly hazeynetwork">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0a0d'/%3E%3Ctext x='16' y='25' font-family='Arial' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EH%3C/text%3E%3C/svg%3E">
 <style>
   :root {
+    color-scheme: dark;
     --bg: #0b0a0d;
     --panel: #151317;
     --line: #2c2833;
@@ -18,24 +22,22 @@
     --accent: #ffffff;
     --accent-hover: #e6e6e6;
     --on-accent: #14101c;
-    --glow: rgba(255, 255, 255, .12);
   }
 
   :root.red {
     --accent: #e01b2e;
     --accent-hover: #ff2d42;
     --on-accent: #ffffff;
-    --glow: rgba(224, 27, 46, .12);
   }
 
   * { box-sizing: border-box; }
 
+  ::selection { background: var(--accent); color: var(--on-accent); }
+
   body {
     margin: 0;
     min-height: 100vh;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, var(--glow), transparent 70%),
-      var(--bg);
+    background: var(--bg);
     color: var(--text);
     font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;
     display: flex;
@@ -84,9 +86,8 @@
     font-weight: 800;
     letter-spacing: -1px;
     color: #ffffff;
+    user-select: none;
   }
-
-  .logo span { color: var(--accent); }
 
   .tagline {
     margin: 14px auto 0;
@@ -117,6 +118,7 @@
 
   .download:focus-visible,
   .lang:focus-visible,
+  summary:focus-visible,
   a:focus-visible {
     outline: 2px solid var(--accent-hover);
     outline-offset: 3px;
@@ -171,6 +173,8 @@
     color: var(--muted);
   }
 
+  .box p + p { margin-top: 10px; }
+
   .box strong { color: var(--text); font-weight: 600; }
 
   .box code { color: var(--text); font-size: 12px; }
@@ -184,11 +188,62 @@
 
   .box a:hover, ol a:hover { color: var(--accent-hover); }
 
+  .box a.more {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .box a.more:hover { color: var(--accent-hover); }
+
   ol {
     margin: 0;
     padding-left: 18px;
     font-size: 14px;
     line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .mods { margin-top: 18px; }
+
+  .mods summary {
+    cursor: pointer;
+    padding: 16px 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .mods[open] summary { border-bottom: 0; }
+
+  .mods .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px 28px;
+    padding: 4px 20px 22px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-top: 0;
+  }
+
+  .mods h3 {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .mods p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.75;
     color: var(--muted);
   }
 
@@ -231,7 +286,7 @@
         <button class="lang" data-lang="pl" type="button">PL</button>
         <button class="lang" data-lang="ru" type="button">RU</button>
       </div>
-      <div class="logo">Haz<span id="plus"></span></div>
+      <div class="logo" id="logo">Haz</div>
       <p class="tagline" data-i18n="tagline">fabric client focused on anarchy, mainly hazeynetwork</p>
       <a class="download" href="download/haz-1.1.19.jar" download>
         <span data-i18n="download">↓ download</span>
@@ -259,14 +314,44 @@
       <div class="box">
         <h2>hs</h2>
         <p>hotkey scripts: bind a text file to a key and run commands, walks, keys, chat lines and camera moves line by line. the full command and step reference lives in the docs.</p>
-        <p><a href="hs/" style="color:var(--accent);font-weight:700">docs &rarr;</a></p>
+        <p><a class="more" href="hs/">docs &rarr;</a></p>
       </div>
     </section>
 
+    <details class="mods">
+      <summary data-i18n="modTitle">all modules (102)</summary>
+      <div class="grid">
+        <div>
+          <h3>combat</h3>
+          <p>AntiPhase · AutoAnchor · AutoCrystal · AutoLog · AutoMine · AutoPhaseAim · AutoSword · AutoTotem · AutoTrap · AutoWeb · AutoWither · AutoXP · Bomber · KeyPearl · MaceAura · NoHitDelay · PearlBlocker · PistonCrystal · PreplaceSurround · Surround · SwordGap · WitherPlacer · cc-burrow</p>
+        </div>
+        <div>
+          <h3>movement</h3>
+          <p>AirJump · CobwebBypass · ElytraAssist · ElytraBounce · ElytraControl · ElytraDash · ElytraFly · FakeFly · FastAccel · FastPortal · NoSlow · Parkour · Scaffold · Sprint · Velocity</p>
+        </div>
+        <div>
+          <h3>player</h3>
+          <p>AutoBreed · AutoEat · AutoFarm · AutoMount · AutoNametag · AutoPortal · AutoTame · AutoTemplate · AutoTool · ChestSwap · Fastuse · ForceSuicide · Freecam · InstantRekit · InventoryKeeper · ItemSaver · KeyPotion · NoGlitchBlocks · NoGlitchItems · NoRotate · Nuker · Replenish</p>
+        </div>
+        <div>
+          <h3>render</h3>
+          <p>Animations · AspectRatio · BlockHighlight · Breadcrumbs · BreakIndicators · Chams · Crosshair · CrystalHand · Fullbright · Hitmarker · HoleESP · LogoutSpots · Nametags · NoBob · NoRender · PhaseESP · PopEffects · QuadSupreme · SeeThrough · Shaders · ShulkerPreview · Skybox · Tablist · ViewClip · ViewModel · XRay</p>
+        </div>
+        <div>
+          <h3>exploit</h3>
+          <p>FastLatency · MaceSpoof · Phase · SpeedMine · Timer · XCarry</p>
+        </div>
+        <div>
+          <h3>client</h3>
+          <p>AltGui · AntiCheat · ClickGui · DiscordRPC · ExtraChat · Hud · JoinOnLaunch · Notifications · ResourcePackDownloader · Targets</p>
+        </div>
+      </div>
+    </details>
 
     <footer>
       <span>Haz · v1.1.19</span>
       <span>
+        <a href="hs/">docs</a>
         <a href="https://github.com/piolunson/homovoreplus" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/piolunson" target="_blank" rel="noopener">piolunson</a>
       </span>
@@ -285,6 +370,7 @@
       step1: "fabric ofc <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "copy the jar to <strong>mods/</strong>",
       step3: "start mc",
+      modTitle: "all modules (102)"
     },
     pl: {
       tagline: "klient fabric nastawiony na anarchię, głównie hazeynetwork",
@@ -296,6 +382,7 @@
       step1: "fabric oczywiście <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "skopiuj jar do <strong>mods/</strong>",
       step3: "odpal mc",
+      modTitle: "wszystkie moduły (102)"
     },
     ru: {
       tagline: "fabric клиент, заточенный под анархию, в основном под hazeynetwork",
@@ -307,6 +394,7 @@
       step1: "fabric, конечно <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "скопируй jar в <strong>mods/</strong>",
       step3: "запусти mc",
+      modTitle: "все модули (102)"
     }
   };
 
@@ -352,45 +440,37 @@
     initLanguage();
   }
 
-  // easter egg: 5 clicks on the + swaps the theme (and recolors the gui screenshot)
-  function recolorToRed(d) {
-    for (var i = 0; i < d.length; i += 4) {
-      if (d[i + 3] === 0) continue;
-      var r = d[i] / 255, g = d[i + 1] / 255, b = d[i + 2] / 255;
-      var max = Math.max(r, g, b), min = Math.min(r, g, b);
-      var df = max - min;
-      if (df === 0) continue;
-      var l = (max + min) / 2;
-      var s = df / (1 - Math.abs(2 * l - 1));
-      var h;
-      if (max === r) h = ((g - b) / df) % 6;
-      else if (max === g) h = (b - r) / df + 2;
-      else h = (r - g) / df + 4;
-      h *= 60;
-      if (h < 0) h += 360;
-      if (h < 200 || h > 320) continue;
-      var w = Math.min(1, Math.max(0, (s - 0.12) / 0.3));
-      if (w === 0) continue;
-      h = (h + 96) % 360;
-      l = Math.max(0, l - 0.3 * w);
-      var c = (1 - Math.abs(2 * l - 1)) * s;
-      var x = c * (1 - Math.abs((h / 60) % 2 - 1));
-      var m = l - c / 2;
-      var rr, gg, bb;
-      if (h < 60) { rr = c; gg = x; bb = 0; }
-      else if (h < 120) { rr = x; gg = c; bb = 0; }
-      else if (h < 180) { rr = 0; gg = c; bb = x; }
-      else if (h < 240) { rr = 0; gg = x; bb = c; }
-      else if (h < 300) { rr = x; gg = 0; bb = c; }
-      else { rr = c; gg = 0; bb = x; }
-      d[i] = Math.round((rr + m) * 255);
-      d[i + 1] = Math.round((gg + m) * 255);
-      d[i + 2] = Math.round((bb + m) * 255);
+  // easter egg: 5 clicks on the logo swaps the theme (and tints the gui screenshot red)
+  function recolorToRed(d, w, h) {
+    var cols = [0, 200, 400, 600, 800, 1000];
+    function px(x, y) { return (y * w + x) * 4; }
+    function tint(i, lo, hi) {
+      if (d[i + 3] === 0) return;
+      var r = d[i], g = d[i + 1], b = d[i + 2];
+      if (Math.max(r, g, b) - Math.min(r, g, b) > 14) return;
+      var v = (r + g + b) / 3;
+      if (v < lo || v > hi) return;
+      d[i] = Math.min(255, Math.round(v * 1.8));
+      d[i + 1] = Math.round(v * 0.15);
+      d[i + 2] = Math.round(v * 0.22);
+    }
+    for (var c = 0; c < cols.length; c++) {
+      var x0 = cols[c];
+      for (var y0 = 0; y0 < h; y0 += 24) {
+        var mid = px(x0 + 1, Math.min(h - 1, y0 + 12));
+        var enabled = y0 === 0 || (d[mid + 3] > 0 && (d[mid] + d[mid + 1] + d[mid + 2]) / 3 > 200);
+        if (!enabled) continue;
+        for (var y = y0; y < Math.min(h, y0 + 24); y++) {
+          for (var x = x0; x < x0 + 195 && x < w; x++) {
+            tint(px(x, y), 70, 175);
+          }
+        }
+      }
     }
   }
 
   (function () {
-    var plus = document.getElementById("plus");
+    var logo = document.getElementById("logo");
     var img = document.querySelector(".shot img");
     var origSrc = img ? img.getAttribute("src") : null;
     var redSrc = null;
@@ -398,7 +478,6 @@
 
     function setGui(red) {
       if (!img || !img.isConnected) return;
-      img.style.filter = "";
       if (!red) { img.src = origSrc; return; }
       if (redSrc) { img.src = redSrc; return; }
       try {
@@ -408,16 +487,14 @@
         var ctx = c.getContext("2d");
         ctx.drawImage(img, 0, 0);
         var data = ctx.getImageData(0, 0, c.width, c.height);
-        recolorToRed(data.data);
+        recolorToRed(data.data, c.width, c.height);
         ctx.putImageData(data, 0, 0);
         redSrc = c.toDataURL("image/png");
         img.src = redSrc;
-      } catch (e) {
-        img.style.filter = "hue-rotate(96deg)";
-      }
+      } catch (e) {}
     }
 
-    plus.addEventListener("click", function () {
+    logo.addEventListener("click", function () {
       clicks++;
       if (clicks >= 5) {
         clicks = 0;
