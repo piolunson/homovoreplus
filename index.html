@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>Haz</title>
-<meta name="description" content="fabric client focused on anarchy, mainly hazeynetwork">
+<meta name="description" content="fabric client made for anarchy">
 <meta name="theme-color" content="#090608">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Haz">
-<meta property="og:description" content="fabric client focused on anarchy, mainly hazeynetwork">
+<meta property="og:description" content="fabric client made for anarchy">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090608'/%3E%3Ctext x='16' y='25' font-family='monospace' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EH%3C/text%3E%3C/svg%3E">
 <style>
   :root {
@@ -53,11 +53,6 @@
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 20px;
-  }
-
-  .narrow {
-    max-width: 920px;
-    margin: 0 auto;
   }
 
   /* ───────── NAV ───────── */
@@ -179,110 +174,18 @@
     letter-spacing: .4px;
   }
 
-  /* ───────── BOXES ───────── */
-  .boxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-
-  .box {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-top: 2px solid var(--accent);
-    padding: 20px;
-  }
-
-  .box h2 {
-    margin: 0 0 12px;
+  .guide {
+    display: inline-block;
+    margin-top: 10px;
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .box p {
-    margin: 0;
-    font-size: 12.5px;
-    line-height: 1.7;
     color: var(--muted);
-  }
-
-  .box p + p { margin-top: 10px; }
-
-  .box strong { color: var(--text); font-weight: 600; }
-
-  .box code { color: var(--accent); font-size: 11px; }
-
-  .box a,
-  ol a {
-    color: var(--text);
+    letter-spacing: .4px;
     text-decoration: underline;
-    text-decoration-color: var(--accent);
+    text-decoration-color: var(--line);
     text-underline-offset: 3px;
   }
 
-  .box a:hover,
-  ol a:hover { color: var(--accent-hover); }
-
-  .box a.more {
-    color: var(--accent);
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  ol {
-    margin: 0;
-    padding-left: 18px;
-    font-size: 12.5px;
-    line-height: 1.9;
-    color: var(--muted);
-  }
-
-  /* ───────── MODULES ───────── */
-  .mods { margin-top: 20px; }
-
-  .mods summary {
-    cursor: pointer;
-    padding: 14px 20px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-top: 2px solid var(--accent);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .mods[open] summary { border-bottom: 0; }
-
-  .mods .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px 28px;
-    padding: 18px 20px 22px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-top: 0;
-  }
-
-  .mods h3 {
-    margin: 0 0 8px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-
-  .mods p {
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.8;
-    color: var(--muted);
-  }
+  .guide:hover { color: var(--text); }
 
   /* ───────── FOOTER ───────── */
   footer {
@@ -313,7 +216,6 @@
     .nav-right { width: 100%; justify-content: space-between; gap: 14px; }
     .hero { padding: 40px 0 48px; }
     .hero h1 { font-size: 42px; }
-    .boxes { grid-template-columns: 1fr; }
     footer { justify-content: center; text-align: center; }
   }
 </style>
@@ -323,7 +225,7 @@
     <nav class="nav">
       <a class="brand" href="./">Haz</a>
       <div class="nav-right">
-        <a href="hs/">docs</a>
+        <a href="docs/">docs</a>
         <a href="https://github.com/piolunson/homovoreplus" target="_blank" rel="noopener">github</a>
         <div class="langs">
           <button class="lang" data-lang="en" type="button">EN</button>
@@ -339,77 +241,19 @@
 
     <header class="hero">
       <h1>Haz.</h1>
-      <p class="tagline" data-i18n="tagline">fabric client focused on anarchy, mainly hazeynetwork</p>
+      <p class="tagline" data-i18n="tagline">fabric client made for anarchy</p>
       <a class="download" href="download/haz-1.1.70.jar" download>
         <span data-i18n="download">↓ download</span>
       </a>
       <span class="version" data-i18n="version">1.1.70 · fabric 1.21.11 · hd capes · automations · future+ gui</span>
+      <a class="guide" href="docs/#/start" data-i18n="guide">install guide →</a>
     </header>
 
-    <main class="narrow">
-      <section class="boxes">
-        <div class="box">
-          <h2 data-i18n="reqTitle">deps</h2>
-          <p data-i18n="reqText">mc <strong>1.21.11</strong> with <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a> and <a href="https://modrinth.com/mod/fabric-api" target="_blank" rel="noopener">Fabric API</a>. Plus Java 21.</p>
-        </div>
-        <div class="box">
-          <h2 data-i18n="installTitle">instalation</h2>
-          <ol>
-            <li data-i18n="step1">fabric ofc <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a></li>
-            <li data-i18n="step2">copy the jar to <strong>mods/</strong></li>
-            <li data-i18n="step3">start mc</li>
-          </ol>
-        </div>
-        <div class="box">
-          <h2>hs</h2>
-          <p>hotkey scripts: bind a text file to a key and run commands, walks, keys, chat lines and camera moves line by line. the full command and step reference lives in the docs.</p>
-          <p><a class="more" href="hs/">docs &rarr;</a></p>
-        </div>
-      </section>
-
-      <details class="mods">
-        <summary data-i18n="modTitle">all modules (116)</summary>
-        <div class="grid">
-          <div>
-            <h3>combat</h3>
-            <p>AntiPhase · AutoAnchor · AutoCrystal · AutoLog · AutoMine · AutoPhaseAim · AutoSword · AutoTotem · AutoTrap · AutoWeb · AutoWither · AutoXP · Bomber · HazeyMace · MaceAura · NoHitDelay · PearlBlocker · PistonCrystal · PistonKick · PreplaceSurround · Surround · SwordGap · TotemBypass · WitherPlacer · cc-burrow</p>
-          </div>
-          <div>
-            <h3>render</h3>
-            <p>Animations · AspectRatio · BlockHighlight · Breadcrumbs · BreakIndicators · Chams · Crosshair · CrystalHand · Fullbright · Hitmarker · HoleESP · LogoutSpots · Nametags · NoBob · NoRender · PhaseESP · PopEffects · SeeThrough · Shaders · ShulkerPreview · Skybox · Tablist · ViewClip · ViewModel · XRay</p>
-          </div>
-          <div>
-            <h3>player</h3>
-            <p>AntiHunger · AutoBreed · AutoEat · AutoFarm · AutoMount · AutoNametag · AutoPortal · AutoTame · AutoTemplate · AutoTool · ChestSwap · Fastuse · ForceSuicide · Freecam · InstantRekit · InventoryKeeper · ItemSaver · KeyPotion · NoGlitchBlocks · NoGlitchItems · NoRotate · Nuker · Replenish</p>
-          </div>
-          <div>
-            <h3>movement</h3>
-            <p>AirJump · CC · CobwebBypass · ElytraAssist · ElytraBounce · ElytraControl · ElytraDash · ElytraFly · FakeFly · FastAccel · FastPortal · NoSlow · Parkour · Scaffold · Sprint · Velocity</p>
-          </div>
-          <div>
-            <h3>client</h3>
-            <p>AltGui · AntiCheat · ClickGui · DiscordRPC · ExtraChat · Hud · JoinOnLaunch · Notifications · ResourcePackDownloader · Targets</p>
-          </div>
-          <div>
-            <h3>experimental</h3>
-            <p>AutoHorse · EndermanLook · Journal · MiddleClick · MoFucker · SoundBlocker · Trickshot</p>
-          </div>
-          <div>
-            <h3>exploit</h3>
-            <p>FastLatency · MaceSpoof · Phase · SpeedMine · Timer · XCarry</p>
-          </div>
-          <div>
-            <h3>legit</h3>
-            <p>AutoHitCrystal · AutoInvTotem · CrystalMacro · KeyPearl</p>
-          </div>
-        </div>
-      </details>
-    </main>
 
     <footer>
       <span>Haz · v1.1.70</span>
       <span>
-        <a href="hs/">docs</a>
+        <a href="docs/">docs</a>
         <a href="https://github.com/piolunson/homovoreplus" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/piolunson" target="_blank" rel="noopener">piolunson</a>
       </span>
@@ -419,40 +263,22 @@
 <script>
   const I18N = {
     en: {
-      tagline: "fabric client focused on anarchy, mainly hazeynetwork",
+      tagline: "fabric client made for anarchy",
       download: "↓ download",
       version: "1.1.70 · fabric 1.21.11 · hd capes · automations · future+ gui",
-      reqTitle: "deps",
-      reqText: "mc <strong>1.21.11</strong> with <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a> and <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Plus Java 21.",
-      installTitle: "instalation",
-      step1: "fabric ofc <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
-      step2: "copy the jar to <strong>mods/</strong>",
-      step3: "start mc",
-      modTitle: "all modules (116)"
+      guide: "install guide →"
     },
     pl: {
-      tagline: "klient fabric nastawiony na anarchię, głównie hazeynetwork",
+      tagline: "klient fabric stworzony pod anarchię",
       download: "↓ pobierz",
       version: "1.1.70 · fabric 1.21.11 · hd capes · automations · future+ gui",
-      reqTitle: "zależności",
-      reqText: "mc <strong>1.21.11</strong> z <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loaderem</a> i <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Plus Java 21.",
-      installTitle: "instalacja",
-      step1: "fabric oczywiście <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
-      step2: "skopiuj jar do <strong>mods/</strong>",
-      step3: "odpal mc",
-      modTitle: "wszystkie moduły (116)"
+      guide: "jak zainstalować →"
     },
     ru: {
-      tagline: "fabric клиент, заточенный под анархию, в основном под hazeynetwork",
+      tagline: "fabric клиент, созданный для анархии",
       download: "↓ скачать",
       version: "1.1.70 · fabric 1.21.11 · hd capes · automations · future+ gui",
-      reqTitle: "зависимости",
-      reqText: "mc <strong>1.21.11</strong> с <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a> и <a href=\"https://modrinth.com/mod/fabric-api\" target=\"_blank\" rel=\"noopener\">Fabric API</a>. Плюс Java 21.",
-      installTitle: "установка",
-      step1: "fabric, конечно <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
-      step2: "скопируй jar в <strong>mods/</strong>",
-      step3: "запусти mc",
-      modTitle: "все модули (116)"
+      guide: "как установить →"
     }
   };
 
