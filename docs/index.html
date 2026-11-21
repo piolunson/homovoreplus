@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Haz · docs</title>
+<meta name="description" content="Haz docs: getting started, every module with its settings, and hotkey scripts.">
+<meta name="theme-color" content="#0b0a0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0a0d'/%3E%3Ctext x='16' y='25' font-family='Arial' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EH%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b0a0d;
+    --panel: #151317;
+    --line: #2c2833;
+    --text: #f0ecf5;
+    --muted: #9a93a8;
+    --accent: #ffffff;
+    --accent-hover: #e6e6e6;
+  }
+
+  * { box-sizing: border-box; }
+
+  ::selection { background: var(--accent); color: #14101c; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;
+    line-height: 1.65;
+    padding: 44px 20px 64px;
+  }
+
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); }
+
+  a:focus-visible,
+  input:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent-hover);
+    outline-offset: 3px;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 34px;
+  }
+
+  .back { font-size: 13px; color: var(--muted); }
+  .back:hover { color: var(--accent); }
+
+  .logo { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+  .logo span { color: var(--accent); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 44px;
+    align-items: start;
+  }
+
+  /* ───────── SIDEBAR ───────── */
+  .side {
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 6px;
+    font-size: 14px;
+  }
+
+  .search {
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+  }
+
+  .search::placeholder { color: var(--muted); }
+
+  .results {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .results:empty { display: none; }
+
+  .results li a {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 12px;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .results li a:hover { background: #1c191f; }
+
+  .results small { color: var(--muted); }
+
+  .side-title {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .side ul { list-style: none; margin: 0; padding: 0; }
+
+  .side a.nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px 10px;
+    border-left: 2px solid transparent;
+    color: var(--muted);
+  }
+
+  .side a.nav:hover { color: var(--text); }
+
+  .side a.nav.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: var(--panel);
+  }
+
+  .side .count { font-size: 12px; opacity: .7; }
+
+  .side ul ul { margin: 2px 0 8px 12px; border-left: 1px solid var(--line); }
+
+  .side ul ul a.nav { font-size: 13px; }
+
+  /* ───────── CONTENT ───────── */
+  .crumbs {
+    margin: 0 0 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+
+  h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    letter-spacing: -.5px;
+  }
+
+  .lead { color: var(--muted); margin: 0 0 26px; max-width: 720px; }
+
+  section {
+    border-top: 1px solid var(--line);
+    padding: 24px 0 4px;
+  }
+
+  h2 {
+    font-size: 15px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  p { margin: 0 0 12px; }
+
+  code, kbd {
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 13px;
+    background: #100e13;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 14px;
+  }
+
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  td:first-child { white-space: nowrap; }
+
+  .muted { color: var(--muted); }
+
+  .note {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    background: var(--panel);
+    padding: 12px 14px;
+    margin: 14px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  ul.plain, ol.plain { margin: 8px 0 16px; padding-left: 20px; }
+  ul.plain li, ol.plain li { margin: 4px 0; }
+
+  dl.index { margin: 4px 0 8px; }
+  dl.index dt { font-weight: 700; margin-top: 14px; }
+  dl.index dd { margin: 2px 0 0; color: var(--muted); }
+
+  .modgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 4px 18px;
+    margin: 4px 0 16px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .modgrid a {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .modgrid a:hover { color: var(--accent); }
+
+  .badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    vertical-align: middle;
+    letter-spacing: 0;
+  }
+
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 800px) {
+    body { padding: 28px 16px 48px; }
+    .layout { grid-template-columns: 1fr; gap: 24px; }
+    .side { position: static; max-height: none; overflow: visible; padding-right: 0; }
+    h1 { font-size: 28px; }
+    td:first-child { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="../">← Haz</a>
+      <div class="logo">docs<span>.</span></div>
+    </div>
+
+    <div class="layout">
+      <aside class="side" id="side"></aside>
+      <main id="content"></main>
+    </div>
+
+    <footer>
+      <span>Haz · docs</span>
+      <span><a href="../">back to haz</a></span>
+    </footer>
+  </div>
+
+<script>
+  // ───────── data ─────────
+  // each module can have: desc (string), settings ([name, type, default, description]), notes (string)
+  var CATS = [
+    { id: "combat", desc: "modules that help in fights: crystals, anchors, totems, traps and the like.",
+      mods: ["AntiPhase","AutoAnchor","AutoCrystal","AutoLog","AutoMine","AutoPhaseAim","AutoSword","AutoTotem","AutoTrap","AutoWeb","AutoWither","AutoXP","Bomber","HazeyMace","MaceAura","NoHitDelay","PearlBlocker","PistonCrystal","PistonKick","PreplaceSurround","Surround","SwordGap","TotemBypass","WitherPlacer","cc-burrow"] },
+    { id: "render", desc: "visuals: outlines, esp, view tweaks and things you stop the game from drawing.",
+      mods: ["Animations","AspectRatio","BlockHighlight","Breadcrumbs","BreakIndicators","Chams","Crosshair","CrystalHand","Fullbright","Hitmarker","HoleESP","LogoutSpots","Nametags","NoBob","NoRender","PhaseESP","PopEffects","SeeThrough","Shaders","ShulkerPreview","Skybox","Tablist","ViewClip","ViewModel","XRay"] },
+    { id: "player", desc: "everyday player helpers and automations: eating, farming, inventory and so on.",
+      mods: ["AntiHunger","AutoBreed","AutoEat","AutoFarm","AutoMount","AutoNametag","AutoPortal","AutoTame","AutoTemplate","AutoTool","ChestSwap","Fastuse","ForceSuicide","Freecam","InstantRekit","InventoryKeeper","ItemSaver","KeyPotion","NoGlitchBlocks","NoGlitchItems","NoRotate","Nuker","Replenish"] },
+    { id: "movement", desc: "everything about getting around: elytra, speed, bypasses and movement tweaks.",
+      mods: ["AirJump","CC","CobwebBypass","ElytraAssist","ElytraBounce","ElytraControl","ElytraDash","ElytraFly","FakeFly","FastAccel","FastPortal","NoSlow","Parkour","Scaffold","Sprint","Velocity"] },
+    { id: "client", desc: "the client itself: gui, hud, notifications, accounts and other settings.",
+      mods: ["AltGui","AntiCheat","ClickGui","DiscordRPC","ExtraChat","Hud","JoinOnLaunch","Notifications","ResourcePackDownloader","Targets"] },
+    { id: "experimental", desc: "",
+      mods: ["AutoHorse","EndermanLook","Journal","MiddleClick","MoFucker","SoundBlocker","Trickshot"] },
+    { id: "exploit", desc: "modules that bend game or server behaviour.",
+      mods: ["FastLatency","MaceSpoof","Phase","SpeedMine","Timer","XCarry"] },
+    { id: "legit", desc: "",
+      mods: ["AutoHitCrystal","AutoInvTotem","CrystalMacro","KeyPearl"] }
+  ];
+
+  var DETAILS = {
+    AutoCrystal: {
+      desc: "Automatically places and breaks end crystals around a target.",
+      settings: []
+    },
+    BlockHighlight: {
+      desc: "Draws an outline around the block you are looking at.",
+      settings: [
+        ["Color", "color", "white", "Color of the outline."],
+        ["LineWidth", "number", "1.5", "Thickness of the outline lines."],
+        ["Animation Speed", "number", "0.4", "Speed of the outline animation."],
+        ["Keybind", "key", "NONE", "Key that toggles the module."],
+        ["BindMode", "mode", "Toggle", "How the keybind behaves."]
+      ]
+    }
+  };
+
+  var TOTAL = CATS.reduce(function (n, c) { return n + c.mods.length; }, 0);
+
+  // ───────── helpers ─────────
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function enc(s) { return encodeURIComponent(s); }
+
+  function cat(id) {
+    for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i];
+    return null;
+  }
+
+  function modIndex(c, name) {
+    for (var i = 0; i < c.mods.length; i++) if (c.mods[i].toLowerCase() === String(name).toLowerCase()) return i;
+    return -1;
+  }
+
+  function modHref(c, name) { return "#/modules/" + enc(c.id) + "/" + enc(name); }
+
+  // ───────── sidebar ─────────
+  function renderSide(parts) {
+    var section = parts[0] || "";
+    var cur = section === "modules" ? cat(parts[1]) : null;
+    var html = '<input class="search" id="search" type="search" placeholder="search modules" autocomplete="off" aria-label="search modules">' +
+      '<ul class="results" id="results"></ul>';
+
+    html += '<span class="side-title">docs</span><ul>';
+    html += '<li><a class="nav' + (section === "" ? " active" : "") + '" href="#/">home</a></li>';
+    html += '<li><a class="nav' + (section === "start" ? " active" : "") + '" href="#/start">getting started</a></li>';
+    html += '</ul>';
+
+    html += '<span class="side-title">modules</span><ul>';
+    html += '<li><a class="nav' + (section === "modules" && !parts[1] ? " active" : "") + '" href="#/modules">overview <span class="count">' + TOTAL + '</span></a></li>';
+    CATS.forEach(function (c) {
+      var open = cur && cur.id === c.id;
+      html += '<li><a class="nav' + (open && !parts[2] ? " active" : "") + '" href="#/modules/' + enc(c.id) + '">' + esc(c.id) + ' <span class="count">' + c.mods.length + '</span></a>';
+      if (open) {
+        html += '<ul>';
+        c.mods.forEach(function (m) {
+          var on = parts[2] && m.toLowerCase() === String(parts[2]).toLowerCase();
+          html += '<li><a class="nav' + (on ? " active" : "") + '" href="' + modHref(c, m) + '">' + esc(m) + '</a></li>';
+        });
+        html += '</ul>';
+      }
+      html += '</li>';
+    });
+    html += '</ul>';
+
+    html += '<span class="side-title">scripting</span><ul>';
+    html += '<li><a class="nav" href="../hs/">hs, hotkey scripts</a></li></ul>';
+
+    document.getElementById("side").innerHTML = html;
+    bindSearch();
+  }
+
+  function bindSearch() {
+    var input = document.getElementById("search");
+    var list = document.getElementById("results");
+    input.addEventListener("input", function () {
+      var q = input.value.trim().toLowerCase();
+      if (!q) { list.innerHTML = ""; return; }
+      var found = [];
+      CATS.forEach(function (c) {
+        c.mods.forEach(function (m) {
+          if (m.toLowerCase().indexOf(q) !== -1) found.push([c, m]);
+        });
+      });
+      list.innerHTML = found.slice(0, 10).map(function (f) {
+        return '<li><a href="' + modHref(f[0], f[1]) + '">' + esc(f[1]) + ' <small>' + esc(f[0].id) + '</small></a></li>';
+      }).join("") || '<li><a href="#/modules" onclick="return false" class="muted">nothing found</a></li>';
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        var first = list.querySelector("a[href^='#/modules/']");
+        if (first) { location.hash = first.getAttribute("href"); input.value = ""; }
+      }
+    });
+  }
+
+  // ───────── pages ─────────
+  function pageHome() {
+    document.title = "Haz · docs";
+    return '<h1>docs</h1>' +
+      '<p class="lead">everything about Haz in one place. pick a section.</p>' +
+      '<section><h2>sections</h2><dl class="index">' +
+      '<dt><a href="#/start">getting started</a></dt><dd>what you need and how to install the client.</dd>' +
+      '<dt><a href="#/modules">modules</a></dt><dd>' + TOTAL + ' modules in ' + CATS.length + ' categories, each with a description and its settings.</dd>' +
+      '<dt><a href="../hs/">hs, hotkey scripts</a></dt><dd>bind a text file to a key and run commands, walks, keys and camera moves.</dd>' +
+      '</dl></section>';
+  }
+
+  function pageStart() {
+    document.title = "Haz · getting started";
+    return '<p class="crumbs"><a href="#/">docs</a> / getting started</p>' +
+      '<h1>getting started</h1>' +
+      '<p class="lead">what you need and how to get Haz running.</p>' +
+      '<section><h2>requirements</h2><ul class="plain">' +
+      '<li>Minecraft <strong>1.21.11</strong></li>' +
+      '<li><a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a></li>' +
+      '<li><a href="https://modrinth.com/mod/fabric-api" target="_blank" rel="noopener">Fabric API</a></li>' +
+      '<li>Java 21</li></ul></section>' +
+      '<section><h2>installation</h2><ol class="plain">' +
+      '<li>install <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a> for 1.21.11</li>' +
+      '<li>grab the jar from the <a href="../">main page</a></li>' +
+      '<li>copy the jar to <code>mods/</code></li>' +
+      '<li>start the game</li></ol>' +
+      '<div class="note">no setup needed, settings save themselves. open the menu with the key from the Client tab.</div></section>';
+  }
+
+  function pageModules() {
+    document.title = "Haz · modules";
+    var html = '<p class="crumbs"><a href="#/">docs</a> / modules</p>' +
+      '<h1>modules</h1>' +
+      '<p class="lead">' + TOTAL + ' modules in ' + CATS.length + ' categories. open a category, then a module for its description and settings.</p>' +
+      '<section><h2>categories</h2><dl class="index">';
+    CATS.forEach(function (c) {
+      html += '<dt><a href="#/modules/' + enc(c.id) + '">' + esc(c.id) + '</a> <span class="muted">(' + c.mods.length + ')</span></dt>' +
+        '<dd>' + (c.desc ? esc(c.desc) : "no description yet.") + '</dd>';
+    });
+    return html + '</dl></section>';
+  }
+
+  function pageCategory(c) {
+    document.title = "Haz · " + c.id;
+    var html = '<p class="crumbs"><a href="#/">docs</a> / <a href="#/modules">modules</a> / ' + esc(c.id) + '</p>' +
+      '<h1>' + esc(c.id) + ' <span class="badge">' + c.mods.length + ' modules</span></h1>' +
+      '<p class="lead">' + (c.desc ? esc(c.desc) : "no description for this category yet.") + '</p>' +
+      '<section><h2>modules</h2><ul class="modgrid">';
+    c.mods.forEach(function (m) {
+      var written = DETAILS[m] ? "" : '<span class="muted">·</span>';
+      html += '<li><a href="' + modHref(c, m) + '">' + esc(m) + ' ' + written + '</a></li>';
+    });
+    return html + '</ul>' +
+      '<p class="muted">a dot means the page has no description or settings written yet.</p></section>';
+  }
+
+  function pageModule(c, i) {
+    var name = c.mods[i];
+    var d = DETAILS[name] || {};
+    document.title = "Haz · " + name;
+
+    var html = '<p class="crumbs"><a href="#/">docs</a> / <a href="#/modules">modules</a> / <a href="#/modules/' + enc(c.id) + '">' + esc(c.id) + '</a> / ' + esc(name) + '</p>' +
+      '<h1>' + esc(name) + ' <span class="badge">' + esc(c.id) + '</span></h1>' +
+      '<p class="lead">' + (d.desc ? esc(d.desc) : "no description for this module yet.") + '</p>';
+
+    html += '<section><h2>settings</h2>';
+    if (d.settings && d.settings.length) {
+      html += '<table><thead><tr><th>setting</th><th>type</th><th>default</th><th>what it does</th></tr></thead><tbody>';
+      d.settings.forEach(function (s) {
+        html += '<tr><td><code>' + esc(s[0]) + '</code></td><td>' + esc(s[1]) + '</td><td><code>' + esc(s[2]) + '</code></td><td>' + esc(s[3]) + '</td></tr>';
+      });
+      html += '</tbody></table>';
+    } else {
+      html += '<p class="muted">the settings of this module are not written down yet.</p>';
+    }
+    html += '</section>';
+
+    if (d.notes) html += '<section><h2>notes</h2><div class="note">' + esc(d.notes) + '</div></section>';
+
+    var prev = i > 0 ? c.mods[i - 1] : null;
+    var next = i < c.mods.length - 1 ? c.mods[i + 1] : null;
+    html += '<div class="pager"><span>' + (prev ? '<a href="' + modHref(c, prev) + '">← ' + esc(prev) + '</a>' : '') + '</span>' +
+      '<span>' + (next ? '<a href="' + modHref(c, next) + '">' + esc(next) + ' →</a>' : '') + '</span></div>';
+    return html;
+  }
+
+  function pageMissing() {
+    document.title = "Haz · docs";
+    return '<h1>page not found</h1><p class="lead">this page does not exist. go back to the <a href="#/">docs home</a>.</p>';
+  }
+
+  // ───────── router ─────────
+  function render() {
+    var parts = (location.hash || "#/").replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
+    var html;
+    if (parts.length === 0) html = pageHome();
+    else if (parts[0] === "start") html = pageStart();
+    else if (parts[0] === "modules") {
+      if (!parts[1]) html = pageModules();
+      else {
+        var c = cat(parts[1]);
+        if (!c) html = pageMissing();
+        else if (!parts[2]) html = pageCategory(c);
+        else {
+          var i = modIndex(c, parts[2]);
+          html = i === -1 ? pageMissing() : pageModule(c, i);
+        }
+      }
+    } else html = pageMissing();
+
+    renderSide(parts);
+    document.getElementById("content").innerHTML = html;
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", render);
+  render();
+</script>
+</body>
+</html>
