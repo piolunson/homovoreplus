@@ -6,19 +6,19 @@
 <meta name="color-scheme" content="dark">
 <title>Haz</title>
 <meta name="description" content="fabric client focused on anarchy, mainly hazeynetwork">
-<meta name="theme-color" content="#0b0a0d">
+<meta name="theme-color" content="#090608">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Haz">
 <meta property="og:description" content="fabric client focused on anarchy, mainly hazeynetwork">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0a0d'/%3E%3Ctext x='16' y='25' font-family='monospace' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090608'/%3E%3Ctext x='16' y='25' font-family='monospace' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EH%3C/text%3E%3C/svg%3E">
 <style>
   :root {
     color-scheme: dark;
-    --bg: #0b0a0d;
-    --panel: #151317;
-    --line: #2c2833;
-    --text: #f0ecf5;
-    --muted: #9a93a8;
+    --bg: #090608;
+    --panel: #110c0f;
+    --line: #261c21;
+    --text: #f3eef0;
+    --muted: #a1949a;
     --accent: #ffffff;
     --accent-hover: #e6e6e6;
     --on-accent: #14101c;
@@ -36,31 +36,66 @@
     font-family: ui-monospace, 'JetBrains Mono', 'Courier New', monospace;
     font-size: 13px;
     line-height: 1.65;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 20px;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap { width: 100%; max-width: 920px; }
+  a { color: inherit; }
 
-  /* ───────── HEADER ───────── */
-  header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 40px;
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent-hover);
+    outline-offset: 3px;
   }
 
-  .langs {
-    position: absolute;
-    top: 0;
-    right: 0;
+  .wrap {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .narrow {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  /* ───────── NAV ───────── */
+  .nav {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 0;
   }
+
+  .brand {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .nav-right > a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: .4px;
+  }
+
+  .nav-right > a:hover { color: var(--text); }
+
+  .langs { display: flex; }
 
   .lang {
-    padding: 6px 12px;
+    padding: 5px 10px;
     border: 1px solid var(--line);
     border-left: none;
     background: var(--panel);
@@ -73,7 +108,6 @@
   }
 
   .lang:first-child { border-left: 1px solid var(--line); }
-
   .lang:hover { color: var(--text); }
 
   .lang.active {
@@ -82,21 +116,38 @@
     color: var(--on-accent);
   }
 
-  .logo {
-    display: inline-block;
-    font-size: 44px;
+  /* ───────── HERO ───────── */
+  .shot {
+    margin: 18px 0 0;
+    overflow-x: auto;
+  }
+
+  .shot img {
+    display: block;
+    width: 100%;
+    min-width: 980px;
+    height: auto;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 56px 0 64px;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: 54px;
+    line-height: 1.1;
     font-weight: 800;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     color: #ffffff;
-    user-select: none;
-    cursor: pointer;
   }
 
   .tagline {
     margin: 14px auto 0;
     max-width: 520px;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--muted);
   }
 
@@ -104,14 +155,13 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-top: 26px;
+    margin-top: 28px;
     padding: 12px 28px;
     border: 1px solid var(--accent);
     background: var(--accent);
     color: var(--on-accent);
-    font-family: inherit;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: .5px;
     text-decoration: none;
   }
@@ -121,34 +171,12 @@
     border-color: var(--accent-hover);
   }
 
-  .download:focus-visible,
-  .lang:focus-visible,
-  summary:focus-visible,
-  a:focus-visible {
-    outline: 2px solid var(--accent-hover);
-    outline-offset: 3px;
-  }
-
   .version {
     display: block;
-    margin-top: 12px;
+    margin-top: 14px;
     font-size: 11px;
     color: var(--muted);
     letter-spacing: .4px;
-  }
-
-  /* ───────── SCREENSHOT ───────── */
-  .shot {
-    margin-bottom: 40px;
-    overflow-x: auto;
-    border: 1px solid var(--line);
-  }
-
-  .shot img {
-    display: block;
-    width: 100%;
-    min-width: 760px;
-    height: auto;
   }
 
   /* ───────── BOXES ───────── */
@@ -187,22 +215,22 @@
 
   .box code { color: var(--accent); font-size: 11px; }
 
-  .box a, ol a {
+  .box a,
+  ol a {
     color: var(--text);
     text-decoration: underline;
     text-decoration-color: var(--accent);
     text-underline-offset: 3px;
   }
 
-  .box a:hover, ol a:hover { color: var(--accent-hover); }
+  .box a:hover,
+  ol a:hover { color: var(--accent-hover); }
 
   .box a.more {
     color: var(--accent);
     font-weight: 700;
     text-decoration: none;
   }
-
-  .box a.more:hover { color: var(--accent-hover); }
 
   ol {
     margin: 0;
@@ -258,8 +286,8 @@
 
   /* ───────── FOOTER ───────── */
   footer {
-    margin-top: 36px;
-    padding-top: 20px;
+    margin-top: 56px;
+    padding: 22px 0 36px;
     border-top: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
@@ -281,22 +309,36 @@
   footer a:hover { color: var(--text); }
 
   @media (max-width: 720px) {
+    .nav { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-right { width: 100%; justify-content: space-between; gap: 14px; }
+    .hero { padding: 40px 0 48px; }
+    .hero h1 { font-size: 42px; }
     .boxes { grid-template-columns: 1fr; }
-    .logo { font-size: 36px; }
-    .langs { position: static; justify-content: center; margin-bottom: 18px; }
     footer { justify-content: center; text-align: center; }
   }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="langs">
-        <button class="lang" data-lang="en" type="button">EN</button>
-        <button class="lang" data-lang="pl" type="button">PL</button>
-        <button class="lang" data-lang="ru" type="button">RU</button>
+    <nav class="nav">
+      <a class="brand" href="./">Haz</a>
+      <div class="nav-right">
+        <a href="hs/">docs</a>
+        <a href="https://github.com/piolunson/homovoreplus" target="_blank" rel="noopener">github</a>
+        <div class="langs">
+          <button class="lang" data-lang="en" type="button">EN</button>
+          <button class="lang" data-lang="pl" type="button">PL</button>
+          <button class="lang" data-lang="ru" type="button">RU</button>
+        </div>
       </div>
-      <div class="logo" id="logo">Haz</div>
+    </nav>
+
+    <section class="shot">
+      <img src="gui.png" alt="Haz GUI" onerror="this.parentNode.remove()">
+    </section>
+
+    <header class="hero">
+      <h1>Haz.</h1>
       <p class="tagline" data-i18n="tagline">fabric client focused on anarchy, mainly hazeynetwork</p>
       <a class="download" href="download/haz-1.1.70.jar" download>
         <span data-i18n="download">↓ download</span>
@@ -304,59 +346,65 @@
       <span class="version" data-i18n="version">1.1.70 · fabric 1.21.11 · hd capes · automations · future+ gui</span>
     </header>
 
-    <section class="shot">
-      <img src="gui.png" alt="Haz GUI" onerror="this.parentNode.remove()">
-    </section>
+    <main class="narrow">
+      <section class="boxes">
+        <div class="box">
+          <h2 data-i18n="reqTitle">deps</h2>
+          <p data-i18n="reqText">mc <strong>1.21.11</strong> with <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a> and <a href="https://modrinth.com/mod/fabric-api" target="_blank" rel="noopener">Fabric API</a>. Plus Java 21.</p>
+        </div>
+        <div class="box">
+          <h2 data-i18n="installTitle">instalation</h2>
+          <ol>
+            <li data-i18n="step1">fabric ofc <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a></li>
+            <li data-i18n="step2">copy the jar to <strong>mods/</strong></li>
+            <li data-i18n="step3">start mc</li>
+          </ol>
+        </div>
+        <div class="box">
+          <h2>hs</h2>
+          <p>hotkey scripts: bind a text file to a key and run commands, walks, keys, chat lines and camera moves line by line. the full command and step reference lives in the docs.</p>
+          <p><a class="more" href="hs/">docs &rarr;</a></p>
+        </div>
+      </section>
 
-    <section class="boxes">
-      <div class="box">
-        <h2 data-i18n="reqTitle">deps</h2>
-        <p data-i18n="reqText">mc <strong>1.21.11</strong> with <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a> and <a href="https://modrinth.com/mod/fabric-api" target="_blank" rel="noopener">Fabric API</a>. Plus Java 21.</p>
-      </div>
-      <div class="box">
-        <h2 data-i18n="installTitle">instalation</h2>
-        <ol>
-          <li data-i18n="step1">fabric ofc <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener">Fabric Loader</a></li>
-          <li data-i18n="step2">copy the jar to <strong>mods/</strong></li>
-          <li data-i18n="step3">start mc</li>
-        </ol>
-      </div>
-      <div class="box">
-        <h2>hs</h2>
-        <p>hotkey scripts: bind a text file to a key and run commands, walks, keys, chat lines and camera moves line by line. the full command and step reference lives in the docs.</p>
-        <p><a class="more" href="hs/">docs &rarr;</a></p>
-      </div>
-    </section>
-
-    <details class="mods">
-      <summary data-i18n="modTitle">all modules (102)</summary>
-      <div class="grid">
-        <div>
-          <h3>combat</h3>
-          <p>AntiPhase · AutoAnchor · AutoCrystal · AutoLog · AutoMine · AutoPhaseAim · AutoSword · AutoTotem · AutoTrap · AutoWeb · AutoWither · AutoXP · Bomber · KeyPearl · MaceAura · NoHitDelay · PearlBlocker · PistonCrystal · PreplaceSurround · Surround · SwordGap · WitherPlacer · cc-burrow</p>
+      <details class="mods">
+        <summary data-i18n="modTitle">all modules (116)</summary>
+        <div class="grid">
+          <div>
+            <h3>combat</h3>
+            <p>AntiPhase · AutoAnchor · AutoCrystal · AutoLog · AutoMine · AutoPhaseAim · AutoSword · AutoTotem · AutoTrap · AutoWeb · AutoWither · AutoXP · Bomber · HazeyMace · MaceAura · NoHitDelay · PearlBlocker · PistonCrystal · PistonKick · PreplaceSurround · Surround · SwordGap · TotemBypass · WitherPlacer · cc-burrow</p>
+          </div>
+          <div>
+            <h3>render</h3>
+            <p>Animations · AspectRatio · BlockHighlight · Breadcrumbs · BreakIndicators · Chams · Crosshair · CrystalHand · Fullbright · Hitmarker · HoleESP · LogoutSpots · Nametags · NoBob · NoRender · PhaseESP · PopEffects · SeeThrough · Shaders · ShulkerPreview · Skybox · Tablist · ViewClip · ViewModel · XRay</p>
+          </div>
+          <div>
+            <h3>player</h3>
+            <p>AntiHunger · AutoBreed · AutoEat · AutoFarm · AutoMount · AutoNametag · AutoPortal · AutoTame · AutoTemplate · AutoTool · ChestSwap · Fastuse · ForceSuicide · Freecam · InstantRekit · InventoryKeeper · ItemSaver · KeyPotion · NoGlitchBlocks · NoGlitchItems · NoRotate · Nuker · Replenish</p>
+          </div>
+          <div>
+            <h3>movement</h3>
+            <p>AirJump · CC · CobwebBypass · ElytraAssist · ElytraBounce · ElytraControl · ElytraDash · ElytraFly · FakeFly · FastAccel · FastPortal · NoSlow · Parkour · Scaffold · Sprint · Velocity</p>
+          </div>
+          <div>
+            <h3>client</h3>
+            <p>AltGui · AntiCheat · ClickGui · DiscordRPC · ExtraChat · Hud · JoinOnLaunch · Notifications · ResourcePackDownloader · Targets</p>
+          </div>
+          <div>
+            <h3>experimental</h3>
+            <p>AutoHorse · EndermanLook · Journal · MiddleClick · MoFucker · SoundBlocker · Trickshot</p>
+          </div>
+          <div>
+            <h3>exploit</h3>
+            <p>FastLatency · MaceSpoof · Phase · SpeedMine · Timer · XCarry</p>
+          </div>
+          <div>
+            <h3>legit</h3>
+            <p>AutoHitCrystal · AutoInvTotem · CrystalMacro · KeyPearl</p>
+          </div>
         </div>
-        <div>
-          <h3>movement</h3>
-          <p>AirJump · CobwebBypass · ElytraAssist · ElytraBounce · ElytraControl · ElytraDash · ElytraFly · FakeFly · FastAccel · FastPortal · NoSlow · Parkour · Scaffold · Sprint · Velocity</p>
-        </div>
-        <div>
-          <h3>player</h3>
-          <p>AutoBreed · AutoEat · AutoFarm · AutoMount · AutoNametag · AutoPortal · AutoTame · AutoTemplate · AutoTool · ChestSwap · Fastuse · ForceSuicide · Freecam · InstantRekit · InventoryKeeper · ItemSaver · KeyPotion · NoGlitchBlocks · NoGlitchItems · NoRotate · Nuker · Replenish</p>
-        </div>
-        <div>
-          <h3>render</h3>
-          <p>Animations · AspectRatio · BlockHighlight · Breadcrumbs · BreakIndicators · Chams · Crosshair · CrystalHand · Fullbright · Hitmarker · HoleESP · LogoutSpots · Nametags · NoBob · NoRender · PhaseESP · PopEffects · QuadSupreme · SeeThrough · Shaders · ShulkerPreview · Skybox · Tablist · ViewClip · ViewModel · XRay</p>
-        </div>
-        <div>
-          <h3>exploit</h3>
-          <p>FastLatency · MaceSpoof · Phase · SpeedMine · Timer · XCarry</p>
-        </div>
-        <div>
-          <h3>client</h3>
-          <p>AltGui · AntiCheat · ClickGui · DiscordRPC · ExtraChat · Hud · JoinOnLaunch · Notifications · ResourcePackDownloader · Targets</p>
-        </div>
-      </div>
-    </details>
+      </details>
+    </main>
 
     <footer>
       <span>Haz · v1.1.70</span>
@@ -380,7 +428,7 @@
       step1: "fabric ofc <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "copy the jar to <strong>mods/</strong>",
       step3: "start mc",
-      modTitle: "all modules (102)"
+      modTitle: "all modules (116)"
     },
     pl: {
       tagline: "klient fabric nastawiony na anarchię, głównie hazeynetwork",
@@ -392,7 +440,7 @@
       step1: "fabric oczywiście <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "skopiuj jar do <strong>mods/</strong>",
       step3: "odpal mc",
-      modTitle: "wszystkie moduły (102)"
+      modTitle: "wszystkie moduły (116)"
     },
     ru: {
       tagline: "fabric клиент, заточенный под анархию, в основном под hazeynetwork",
@@ -404,7 +452,7 @@
       step1: "fabric, конечно <a href=\"https://fabricmc.net/use/installer/\" target=\"_blank\" rel=\"noopener\">Fabric Loader</a>",
       step2: "скопируй jar в <strong>mods/</strong>",
       step3: "запусти mc",
-      modTitle: "все модули (102)"
+      modTitle: "все модули (116)"
     }
   };
 
