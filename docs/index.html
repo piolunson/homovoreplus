@@ -328,17 +328,17 @@
     { id: "combat", desc: "modules that help in fights: crystals, anchors, totems, traps and the like.",
       mods: ["AntiPhase","AutoAnchor","AutoCrystal","AutoLog","AutoMine","AutoPhaseAim","AutoSword","AutoTotem","AutoTrap","AutoWeb","AutoWither","AutoXP","Bomber","HazeyMace","MaceAura","NoHitDelay","PearlBlocker","PistonCrystal","PistonKick","PreplaceSurround","Surround","SwordGap","TotemBypass","WitherPlacer","cc-burrow"] },
     { id: "render", desc: "visuals: outlines, esp, view tweaks and things you stop the game from drawing.",
-      mods: ["Animations","AspectRatio","BlockHighlight","Breadcrumbs","BreakIndicators","Chams","Crosshair","CrystalHand","Fullbright","Hitmarker","HoleESP","LogoutSpots","Nametags","NoBob","NoRender","PhaseESP","PopEffects","SeeThrough","Shaders","ShulkerPreview","Skybox","Tablist","ViewClip","ViewModel","XRay"] },
+      mods: ["Animations","AspectRatio","BlockHighlight","Breadcrumbs","BreakIndicators","Capes","Chams","Crosshair","CrystalHand","Fullbright","Hitmarker","HoleESP","LogoutSpots","Nametags","NoBob","NoRender","PhaseESP","PopEffects","SeeThrough","Shaders","ShulkerPreview","Skybox","Tablist","ViewClip","ViewModel","XRay"] },
     { id: "player", desc: "everyday player helpers and automations: eating, farming, inventory and so on.",
-      mods: ["AntiHunger","AutoBreed","AutoEat","AutoFarm","AutoMount","AutoNametag","AutoPortal","AutoTame","AutoTemplate","AutoTool","ChestSwap","Fastuse","ForceSuicide","Freecam","InstantRekit","InventoryKeeper","ItemSaver","KeyPotion","NoGlitchBlocks","NoGlitchItems","NoRotate","Nuker","Replenish"] },
+      mods: ["AntiHunger","AutoBreed","AutoEat","AutoFarm","AutoMount","AutoNametag","AutoPortal","AutoTame","AutoTemplate","AutoTool","ChestSwap","Fastuse","ForceSuicide","FreeLook","Freecam","InstantRekit","InventoryKeeper","ItemSaver","KeyPotion","NoGlitchBlocks","NoGlitchItems","NoRotate","Nuker","Replenish"] },
     { id: "movement", desc: "everything about getting around: elytra, speed, bypasses and movement tweaks.",
-      mods: ["AirJump","CC","CobwebBypass","ElytraAssist","ElytraBounce","ElytraControl","ElytraDash","ElytraFly","FakeFly","FastAccel","FastPortal","NoSlow","Parkour","Scaffold","Sprint","Velocity"] },
+      mods: ["AirJump","CC","CobwebBypass","ElytraAssist","ElytraBounce","ElytraControl","ElytraDash","ElytraFly","FakeFly","FastAccel","FastPortal","NoJumpDelay","NoSlow","Parkour","Scaffold","Sprint","Strafe","Velocity"] },
     { id: "client", desc: "the client itself: gui, hud, notifications, accounts and other settings.",
       mods: ["AltGui","AntiCheat","ClickGui","DiscordRPC","ExtraChat","Hud","JoinOnLaunch","Notifications","ResourcePackDownloader","Targets"] },
     { id: "experimental", desc: "",
       mods: ["AutoHorse","EndermanLook","Journal","MiddleClick","MoFucker","SoundBlocker","Trickshot"] },
     { id: "exploit", desc: "modules that bend game or server behaviour.",
-      mods: ["FastLatency","MaceSpoof","Phase","SpeedMine","Timer","XCarry"] },
+      mods: ["Automations","FastLatency","MaceSpoof","Phase","SpeedMine","Timer","XCarry"] },
     { id: "legit", desc: "",
       mods: ["AutoHitCrystal","AutoInvTotem","CrystalMacro","KeyPearl"] }
   ];
@@ -347,6 +347,23 @@
     AutoCrystal: {
       desc: "Automatically places and breaks end crystals around a target.",
       settings: []
+    },
+    ClickGui: {
+      desc: "The menu itself: every category as a panel. Its settings change the look (theme, effect, fonts) and the key that opens it.",
+      settings: [
+        ["Prefix", "text", ".", "Prefix for client commands, for example .hs."],
+        ["GUI Theme", "mode", "Red", "Color theme of the menu."],
+        ["Effect", "mode", "Marble", "Background effect drawn on the panels."],
+        ["Speed", "mode", "X1", "Speed of the effect."],
+        ["Dim", "mode", "Low", "How much the game is dimmed behind the menu."],
+        ["FontColor", "color", "white", "Color of the menu text."],
+        ["AnimationSpeed", "number", "1.0", "Speed of the menu animations."],
+        ["Smooth", "toggle", "on", "Smooths the menu animations."],
+        ["ClickGUI Font", "toggle", "off", "Use the custom font in the menu."],
+        ["HUD Font", "toggle", "on", "Use the custom font in the HUD."],
+        ["Font Name", "text", "-", "Name of the font that is used."],
+        ["Keybind", "key", "RIGHT CONTROL", "Key that opens the menu."]
+      ]
     },
     BlockHighlight: {
       desc: "Draws an outline around the block you are looking at.",
@@ -468,7 +485,7 @@
       '<li>grab the jar from the <a href="../">main page</a></li>' +
       '<li>copy the jar to <code>mods/</code></li>' +
       '<li>start the game</li></ol>' +
-      '<div class="note">no setup needed, settings save themselves. open the menu with the key from the Client tab.</div></section>';
+      '<div class="note">no setup needed, settings save themselves. the menu opens with RIGHT CONTROL, you can change the key in client / ClickGui / Keybind.</div></section>';
   }
 
   function pageModules() {
