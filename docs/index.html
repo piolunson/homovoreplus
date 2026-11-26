@@ -321,61 +321,25 @@
     </footer>
   </div>
 
+<script src="data/combat.js"></script>
+<script src="data/legit.js"></script>
+<script src="data/experimental.js"></script>
+<script src="data/render.js"></script>
+<script src="data/movement.js"></script>
+<script src="data/player.js"></script>
+<script src="data/exploit.js"></script>
+<script src="data/client.js"></script>
 <script>
   // ───────── data ─────────
-  // each module can have: desc (string), settings ([name, type, default, description]), notes (string)
-  var CATS = [
-    { id: "combat", desc: "modules that help in fights: crystals, anchors, totems, traps and the like.",
-      mods: ["AntiPhase","AutoAnchor","AutoCrystal","AutoLog","AutoMine","AutoPhaseAim","AutoSword","AutoTotem","AutoTrap","AutoWeb","AutoWither","AutoXP","Bomber","HazeyMace","MaceAura","NoHitDelay","PearlBlocker","PistonCrystal","PistonKick","PreplaceSurround","Surround","SwordGap","TotemBypass","WitherPlacer","cc-burrow"] },
-    { id: "render", desc: "visuals: outlines, esp, view tweaks and things you stop the game from drawing.",
-      mods: ["Animations","AspectRatio","BlockHighlight","Breadcrumbs","BreakIndicators","Capes","Chams","Crosshair","CrystalHand","Fullbright","Hitmarker","HoleESP","LogoutSpots","Nametags","NoBob","NoRender","PhaseESP","PopEffects","SeeThrough","Shaders","ShulkerPreview","Skybox","Tablist","ViewClip","ViewModel","XRay"] },
-    { id: "player", desc: "everyday player helpers and automations: eating, farming, inventory and so on.",
-      mods: ["AntiHunger","AutoBreed","AutoEat","AutoFarm","AutoMount","AutoNametag","AutoPortal","AutoTame","AutoTemplate","AutoTool","ChestSwap","Fastuse","ForceSuicide","FreeLook","Freecam","InstantRekit","InventoryKeeper","ItemSaver","KeyPotion","NoGlitchBlocks","NoGlitchItems","NoRotate","Nuker","Replenish"] },
-    { id: "movement", desc: "everything about getting around: elytra, speed, bypasses and movement tweaks.",
-      mods: ["AirJump","CC","CobwebBypass","ElytraAssist","ElytraBounce","ElytraControl","ElytraDash","ElytraFly","FakeFly","FastAccel","FastPortal","NoJumpDelay","NoSlow","Parkour","Scaffold","Sprint","Strafe","Velocity"] },
-    { id: "client", desc: "the client itself: gui, hud, notifications, accounts and other settings.",
-      mods: ["AltGui","AntiCheat","ClickGui","DiscordRPC","ExtraChat","Hud","JoinOnLaunch","Notifications","ResourcePackDownloader","Targets"] },
-    { id: "experimental", desc: "",
-      mods: ["AutoHorse","EndermanLook","Journal","MiddleClick","MoFucker","SoundBlocker","Trickshot"] },
-    { id: "exploit", desc: "modules that bend game or server behaviour.",
-      mods: ["Automations","FastLatency","MaceSpoof","Phase","SpeedMine","Timer","XCarry"] },
-    { id: "legit", desc: "",
-      mods: ["AutoHitCrystal","AutoInvTotem","CrystalMacro","KeyPearl"] }
-  ];
-
-  var DETAILS = {
-    AutoCrystal: {
-      desc: "Automatically places and breaks end crystals around a target.",
-      settings: []
-    },
-    ClickGui: {
-      desc: "The menu itself: every category as a panel. Its settings change the look (theme, effect, fonts) and the key that opens it.",
-      settings: [
-        ["Prefix", "text", ".", "Prefix for client commands, for example .hs."],
-        ["GUI Theme", "mode", "Red", "Color theme of the menu."],
-        ["Effect", "mode", "Marble", "Background effect drawn on the panels."],
-        ["Speed", "mode", "X1", "Speed of the effect."],
-        ["Dim", "mode", "Low", "How much the game is dimmed behind the menu."],
-        ["FontColor", "color", "white", "Color of the menu text."],
-        ["AnimationSpeed", "number", "1.0", "Speed of the menu animations."],
-        ["Smooth", "toggle", "on", "Smooths the menu animations."],
-        ["ClickGUI Font", "toggle", "off", "Use the custom font in the menu."],
-        ["HUD Font", "toggle", "on", "Use the custom font in the HUD."],
-        ["Font Name", "text", "-", "Name of the font that is used."],
-        ["Keybind", "key", "RIGHT CONTROL", "Key that opens the menu."]
-      ]
-    },
-    BlockHighlight: {
-      desc: "Draws an outline around the block you are looking at.",
-      settings: [
-        ["Color", "color", "white", "Color of the outline."],
-        ["LineWidth", "number", "1.5", "Thickness of the outline lines."],
-        ["Animation Speed", "number", "0.4", "Speed of the outline animation."],
-        ["Keybind", "key", "NONE", "Key that toggles the module."],
-        ["BindMode", "mode", "Toggle", "How the keybind behaves."]
-      ]
-    }
-  };
+  // loaded from data/*.js; settings are [name, type, default, description, page]
+  var CATS = [];
+  var DETAILS = {};
+  (window.HAZ_DOCS || []).forEach(function (c) {
+    CATS.push({ id: c.id, desc: c.desc, mods: c.mods });
+    c.mods.forEach(function (m) {
+      DETAILS[m] = { desc: c.details[m][0], settings: c.details[m][1] };
+    });
+  });
 
   var TOTAL = CATS.reduce(function (n, c) { return n + c.mods.length; }, 0);
 
@@ -526,14 +490,15 @@
 
     html += '<section><h2>settings</h2>';
     if (d.settings && d.settings.length) {
-      html += '<table><thead><tr><th>setting</th><th>type</th><th>default</th><th>what it does</th></tr></thead><tbody>';
+      html += '<table><thead><tr><th>setting</th><th>type</th><th>default</th><th>page</th><th>what it does</th></tr></thead><tbody>';
       d.settings.forEach(function (s) {
-        html += '<tr><td><code>' + esc(s[0]) + '</code></td><td>' + esc(s[1]) + '</td><td><code>' + esc(s[2]) + '</code></td><td>' + esc(s[3]) + '</td></tr>';
+        html += '<tr><td><code>' + esc(s[0]) + '</code></td><td>' + esc(s[1]) + '</td><td><code>' + esc(s[2]) + '</code></td><td class="muted">' + esc(s[4] || "General") + '</td><td>' + (s[3] ? esc(s[3]) : '<span class="muted">no description in the code</span>') + '</td></tr>';
       });
       html += '</tbody></table>';
     } else {
       html += '<p class="muted">the settings of this module are not written down yet.</p>';
     }
+    html += '<p class="muted">every module also has Enabled, Keybind, BindMode and DisplayName on the General page. the table above lists the module\'s own settings; type, default and page come from the code, and rows without text have no description there.</p>';
     html += '</section>';
 
     if (d.notes) html += '<section><h2>notes</h2><div class="note">' + esc(d.notes) + '</div></section>';
