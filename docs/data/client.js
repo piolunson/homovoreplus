@@ -2,7 +2,7 @@
 (window.HAZ_DOCS = window.HAZ_DOCS || []).push({
   id: "client",
   desc: "the client itself: chat, hud, notifications, discord, targets and anticheat behaviour.",
-  mods: ["AntiCheat","AntiSpam","ChatSpammer","DiscordRPC","ExtraChat","Hud","JoinOnLaunch","LiquidHotbar","NoNarrator","NoSoundLag","Notifications","PosLogger","ResourcePackDownloader","SkinBlink","SpinBot","Targets"],
+  mods: ["AntiCheat","AntiSpam","ChatSpammer","DiscordRPC","ExtraChat","Hud","JoinOnLaunch","LiquidHotbar","NoNarrator","NoSoundLag","Notifications","ResourcePackDownloader","SkinBlink","SpinBot","Targets"],
   details: {
     "AntiCheat": ["Manages the client's behavior on different anti-cheats.", [
       ["2b2t","toggle","off"],
@@ -98,10 +98,6 @@
       ["Deaths","toggle","on"],
       ["TotemPops","toggle","on"],
       ["Gear","toggle","off"]
-    ]],
-    "PosLogger": ["Prints the closest player's position and rotations to the chat.", [
-      ["Delay","number","1","Seconds between two position messages."],
-      ["ShowIDs","toggle","off","Shows every entity id above its head."]
     ]],
     "ResourcePackDownloader": ["Downloads resource packs from Modrinth into your resourcepacks folder.", [
       ["Packs","text","low-fire-pack, low-shield-pack, spunky-pvp-texture-pack, crystal-pvp-lt3-essentials"],
